@@ -34,6 +34,12 @@
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.btnAddRoom = new System.Windows.Forms.Button();
             this.lstRooms = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtCustomerName = new System.Windows.Forms.TextBox();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.btnAddCustomer = new System.Windows.Forms.Button();
+            this.lstCustomers = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -71,7 +77,7 @@
             // 
             // btnAddRoom
             // 
-            this.btnAddRoom.Location = new System.Drawing.Point(88, 183);
+            this.btnAddRoom.Location = new System.Drawing.Point(79, 173);
             this.btnAddRoom.Name = "btnAddRoom";
             this.btnAddRoom.Size = new System.Drawing.Size(121, 23);
             this.btnAddRoom.TabIndex = 4;
@@ -85,14 +91,71 @@
             this.lstRooms.ItemHeight = 16;
             this.lstRooms.Location = new System.Drawing.Point(292, 19);
             this.lstRooms.Name = "lstRooms";
-            this.lstRooms.Size = new System.Drawing.Size(496, 388);
+            this.lstRooms.Size = new System.Drawing.Size(496, 196);
             this.lstRooms.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(59, 255);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 16);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Customer Name:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(59, 313);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 16);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Phone Number:";
+            // 
+            // txtCustomerName
+            // 
+            this.txtCustomerName.Location = new System.Drawing.Point(183, 249);
+            this.txtCustomerName.Name = "txtCustomerName";
+            this.txtCustomerName.Size = new System.Drawing.Size(100, 22);
+            this.txtCustomerName.TabIndex = 8;
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.Location = new System.Drawing.Point(183, 313);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(100, 22);
+            this.txtPhone.TabIndex = 9;
+            // 
+            // btnAddCustomer
+            // 
+            this.btnAddCustomer.Location = new System.Drawing.Point(79, 385);
+            this.btnAddCustomer.Name = "btnAddCustomer";
+            this.btnAddCustomer.Size = new System.Drawing.Size(121, 23);
+            this.btnAddCustomer.TabIndex = 10;
+            this.btnAddCustomer.Text = "Add Customer";
+            this.btnAddCustomer.UseVisualStyleBackColor = true;
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
+            // 
+            // lstCustomers
+            // 
+            this.lstCustomers.FormattingEnabled = true;
+            this.lstCustomers.ItemHeight = 16;
+            this.lstCustomers.Location = new System.Drawing.Point(292, 245);
+            this.lstCustomers.Name = "lstCustomers";
+            this.lstCustomers.Size = new System.Drawing.Size(496, 180);
+            this.lstCustomers.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1138, 555);
+            this.Controls.Add(this.lstCustomers);
+            this.Controls.Add(this.btnAddCustomer);
+            this.Controls.Add(this.txtPhone);
+            this.Controls.Add(this.txtCustomerName);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lstRooms);
             this.Controls.Add(this.btnAddRoom);
             this.Controls.Add(this.txtPrice);
@@ -114,6 +177,12 @@
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Button btnAddRoom;
         private System.Windows.Forms.ListBox lstRooms;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtCustomerName;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.Button btnAddCustomer;
+        private System.Windows.Forms.ListBox lstCustomers;
     }
 }
 

@@ -50,5 +50,38 @@ namespace HotelReservationSystem
                 MessageBox.Show("Please enter valid numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnAddCustomer_Click(object sender, EventArgs e)
+        {
+            // 1. İsim ve Telefon boş mu diye basit bir kontrol yapalım
+            if (txtCustomerName.Text == "" || txtPhone.Text == "")
+            {
+                MessageBox.Show("Please fill in all fields!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Kodun geri kalanını çalıştırma, dur.
+            }
+
+            try
+            {
+                // 2. Rastgele bir Müşteri ID'si üretelim (Örn: 100 ile 999 arası)
+                int randomId = new Random().Next(100, 999);
+
+                // 3. Yeni Müşteri nesnesini oluşturalım
+                Customer newGuest = new Customer(randomId, txtCustomerName.Text, txtPhone.Text);
+
+                // 4. Müşteriyi aşağıdaki listeye ekleyelim
+                lstCustomers.Items.Add(newGuest);
+
+                // 5. Kutuları temizleyelim
+                txtCustomerName.Clear();
+                txtPhone.Clear();
+
+                // Bilgi verelim
+                MessageBox.Show("Customer added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch
+            {
+                MessageBox.Show("An error occurred!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
