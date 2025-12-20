@@ -1,29 +1,33 @@
 # 🏨 Hotel Reservation System 
 
 A robust and modern **Windows Forms Application** developed in C# to manage hotel rooms, customers, and reservations.
-This project demonstrates **Object-Oriented Programming (OOP)** principles such as Classes, Encapsulation, and Collections.
+This project demonstrates **Object-Oriented Programming (OOP)** principles such as Classes, Encapsulation, Polymorphism, and Collections.
 
-##  Features 
+## Features 
 
-* **Room Management:** Add new rooms with specific numbers and prices. Prevents duplicate room numbers.
-* **Customer Management:** Register guests with their names and contact details.
-* **Reservation System:** Create bookings with Check-in/Check-out dates.
-* **Availability Check:** Smart algorithm to check if a room is available for selected dates (prevents double booking).
-* **Conflict Detection:** Automatically alerts if dates overlap with an existing reservation.
-* **Modern UI:** User-friendly interface with grouped sections and color-coded indicators.
-* 
-##  Technologies Used 
+* **Room Types:** Selectable room categories (Standard, Deluxe, Suite, King Suite) via dynamic dropdown menu.
+* **Customer Management:** Records full guest details including **Name, Phone Number, and Unique Customer ID/TC**.
+* **Smart Validation:** Prevents adding duplicate Room Numbers or Customer IDs to ensure data integrity.
+* **Conflict Detection:** Advanced algorithm to check if a room is available for selected dates (prevents double booking).
+* **Modern UI:** User-friendly interface with grouped sections, intuitive controls, and color-coded feedback.
+
+## Technologies & Concepts 
 
 * **Language:** C#
 * **Framework:** .NET Framework (Windows Forms)
 * **IDE:** Visual Studio 2022
-* **Concepts:** OOP, Collections (List<T>), Exception Handling (Try-Catch), Event-Driven Programming.
-  
-##  How It Works
+* **OOP Concepts:**
+    * **Classes & Objects:** (`Room`, `Customer`, `Reservation`)
+    * **Encapsulation:** (Properties with `get; set;`)
+    * **Collections:** (`ListBox`, `List<T>`, `foreach` loops)
+    * **Input Validation:** (Try-Catch blocks, logical constraints)
 
-1.  **Add Room:** Enter a room number (e.g., 101) and price. It appears in the "Room Management" list.
-2.  **Add Customer:** Enter guest details.
-3.  **Check Availability:** Select dates and a room, then click "Check Availability" to see if it's free.
-4.  **Make Reservation:** If available, click "Make Reservation" to save the booking.
+## How It Works 
 
+1.  **Add Room:** Enter a Room Number, select a **Room Type** (e.g., Suite), and enter Price.
+2.  **Add Customer:** Register a guest by entering their **Customer Name, Phone Number, and ID/TC Number**. The system ensures the ID is unique.
+3.  **Check Availability:** Select Check-in/Check-out dates and a room to see if it's free.
+4.  **Make Reservation:** If available, create the booking. The system automatically links the selected Room and Customer.
+
+---
 *Developed by Fatih Işık*
