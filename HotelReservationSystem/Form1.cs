@@ -29,6 +29,15 @@ namespace HotelReservationSystem
             {
                 int number = int.Parse(txtRoomNumber.Text);       // Oda numarasını sayıya çevir
                 decimal price = decimal.Parse(txtPrice.Text);     // Fiyatı paraya çevir
+                                                                  // KONTROL: Oda tipi seçilmiş mi?
+                if (cmbRoomType.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Please select a room type!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Seçilen tipi al (Standard, Deluxe vs.)
+                string selectedType = cmbRoomType.SelectedItem.ToString();
 
                 // --- YENİ EKLENECEK KISIM (AYNI ODA KONTROLÜ) ---
                 foreach (Room existingRoom in lstRooms.Items)
@@ -39,11 +48,10 @@ namespace HotelReservationSystem
                         return; // Fonksiyonu durdur, ekleme yapma.
                     }
                 }
-                // --- BİTİŞ ---
+              
 
-                // 2. Yeni bir ODA nesnesi (Room Object) oluşturalım
-                // (Tip olarak şimdilik 'Standard' dedik, ilerde seçmeli yaparız)
-                Room newRoom = new Room(number, "Standard", price);
+                // 2. Artık "Standard" yerine selectedType değişkenini koyuyoruz
+                Room newRoom = new Room(number, selectedType, price);
 
                 // 3. Bu odayı sağdaki ListBox'a ekleyelim
                 lstRooms.Items.Add(newRoom);
@@ -51,6 +59,7 @@ namespace HotelReservationSystem
                 // 4. Kutuları temizleyelim ki yeni giriş yapılabilsin
                 txtRoomNumber.Clear();
                 txtPrice.Clear();
+                cmbRoomType.SelectedIndex = -1;
 
                 // Kullanıcıya bilgi verelim
                 MessageBox.Show("Room added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -64,34 +73,48 @@ namespace HotelReservationSystem
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            // 1. İsim ve Telefon boş mu diye basit bir kontrol yapalım
-            if (txtCustomerName.Text == "" || txtPhone.Text == "")
+   
+            // 1. Kutular boş mu? (ID kutusu dahil)
+            if (txtCustomerName.Text == "" || txtPhone.Text == "" || txtCustomerId.Text == "")
             {
                 MessageBox.Show("Please fill in all fields!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Kodun geri kalanını çalıştırma, dur.
+                return;
             }
 
             try
             {
-                // 2. Rastgele bir Müşteri ID'si üretelim (Örn: 100 ile 999 arası)
-                int randomId = new Random().Next(100, 999);
+                // 2. Verileri al
+                string name = txtCustomerName.Text;
+                string phone = txtPhone.Text;
+                string id = txtCustomerId.Text; // ID'yi kutudan alıyoruz
 
-                // 3. Yeni Müşteri nesnesini oluşturalım
-                Customer newGuest = new Customer(randomId, txtCustomerName.Text, txtPhone.Text);
+                // 3. AYNI ID KONTROLÜ
+                foreach (Customer existingGuest in lstCustomers.Items)
+                {
+                    // Eğer burada .CustomerId hata verirse, Customer.cs dosyanda bu özelliği tanımladığından emin ol.
+                    if (existingGuest.CustomerId == id)
+                    {
+                        MessageBox.Show("This ID is already registered!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-                // 4. Müşteriyi aşağıdaki listeye ekleyelim
+                // 4. Yeni Müşteriyi oluştur (Senin son ayarladığın sıraya göre: İsim, ID, Telefon)
+                Customer newGuest = new Customer(name, id, phone);
+
+                // 5. Listeye ekle
                 lstCustomers.Items.Add(newGuest);
 
-                // 5. Kutuları temizleyelim
+                // 6. Temizlik
                 txtCustomerName.Clear();
                 txtPhone.Clear();
+                txtCustomerId.Clear();
 
-                // Bilgi verelim
-                MessageBox.Show("Customer added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
             {
-                MessageBox.Show("An error occurred!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error occurred!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -178,7 +201,7 @@ namespace HotelReservationSystem
                     if (checkIn < res.CheckOutDate && checkOut > res.CheckInDate)
                     {
                         isAvailable = false;
-                        occupiedBy = res.HotelGuest.FullName; // Kimin kaldığını öğreniyoruz
+                        occupiedBy = res.HotelGuest.CustomerName; // Kimin kaldığını öğreniyoruz
                         break;
                     }
                 }

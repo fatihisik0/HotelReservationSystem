@@ -9,20 +9,20 @@ namespace HotelReservationSystem
     // Müşteri Sınıfı
     public class Customer
     {
-        public int Id { get; set; }
-        public string FullName { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerId { get; set; }
         public string PhoneNumber { get; set; }
 
-        public Customer(int id, string fullName, string phoneNumber)
+        public Customer( string customerName, string id, string phoneNumber)
         {
-            Id = id;
-            FullName = fullName;
+            CustomerName = customerName;
+            CustomerId = id;
             PhoneNumber = phoneNumber;
         }
 
         public override string ToString()
         {
-            return $"{FullName} - Tel: {PhoneNumber}";
+            return $"{CustomerName} (ID: {CustomerId}) - Tel: {PhoneNumber}";
         }
     }
 }
