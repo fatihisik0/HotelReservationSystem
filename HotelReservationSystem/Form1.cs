@@ -39,7 +39,7 @@ namespace HotelReservationSystem
                 // Seçilen tipi al (Standard, Deluxe vs.)
                 string selectedType = cmbRoomType.SelectedItem.ToString();
 
-                // --- YENİ EKLENECEK KISIM (AYNI ODA KONTROLÜ) ---
+                // ODA KONTROLÜ
                 foreach (Room existingRoom in lstRooms.Items)
                 {
                     if (existingRoom.RoomNumber == number)
@@ -50,13 +50,13 @@ namespace HotelReservationSystem
                 }
               
 
-                // 2. Artık "Standard" yerine selectedType değişkenini koyuyoruz
+                // 2. selectedType değişkeni
                 Room newRoom = new Room(number, selectedType, price);
 
                 // 3. Bu odayı sağdaki ListBox'a ekleyelim
                 lstRooms.Items.Add(newRoom);
 
-                // 4. Kutuları temizleyelim ki yeni giriş yapılabilsin
+                // 4. Kutuları temizleyelim 
                 txtRoomNumber.Clear();
                 txtPrice.Clear();
                 cmbRoomType.SelectedIndex = -1;
@@ -91,7 +91,6 @@ namespace HotelReservationSystem
                 // 3. AYNI ID KONTROLÜ
                 foreach (Customer existingGuest in lstCustomers.Items)
                 {
-                    // Eğer burada .CustomerId hata verirse, Customer.cs dosyanda bu özelliği tanımladığından emin ol.
                     if (existingGuest.CustomerId == id)
                     {
                         MessageBox.Show("This ID is already registered!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -99,7 +98,7 @@ namespace HotelReservationSystem
                     }
                 }
 
-                // 4. Yeni Müşteriyi oluştur (Senin son ayarladığın sıraya göre: İsim, ID, Telefon)
+                // 4. Yeni Müşteriyi oluştur 
                 Customer newGuest = new Customer(name, id, phone);
 
                 // 5. Listeye ekle
