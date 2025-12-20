@@ -30,6 +30,17 @@ namespace HotelReservationSystem
                 int number = int.Parse(txtRoomNumber.Text);       // Oda numarasını sayıya çevir
                 decimal price = decimal.Parse(txtPrice.Text);     // Fiyatı paraya çevir
 
+                // --- YENİ EKLENECEK KISIM (AYNI ODA KONTROLÜ) ---
+                foreach (Room existingRoom in lstRooms.Items)
+                {
+                    if (existingRoom.RoomNumber == number)
+                    {
+                        MessageBox.Show("Room " + number + " already exists!", "Duplicate Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; // Fonksiyonu durdur, ekleme yapma.
+                    }
+                }
+                // --- BİTİŞ ---
+
                 // 2. Yeni bir ODA nesnesi (Room Object) oluşturalım
                 // (Tip olarak şimdilik 'Standard' dedik, ilerde seçmeli yaparız)
                 Room newRoom = new Room(number, "Standard", price);
@@ -82,6 +93,111 @@ namespace HotelReservationSystem
             {
                 MessageBox.Show("An error occurred!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnMakeReservation_Click(object sender, EventArgs e)
+        {
+            // 1. Önce listeden bir ODA ve bir MÜŞTERİ seçilmiş mi diye bakalım
+            if (lstRooms.SelectedItem == null || lstCustomers.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a Room and a Customer first!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // 2. Seçilen nesneleri alalım
+                Room selectedRoom = (Room)lstRooms.SelectedItem;
+                Customer selectedCustomer = (Customer)lstCustomers.SelectedItem;
+
+                // 3. Tarihleri alalım
+                DateTime checkIn = dtpCheckIn.Value;
+                DateTime checkOut = dtpCheckOut.Value;
+
+                // --- TARİH ÇAKIŞMA KONTROLÜ ---
+
+                // Mantık Hatası Kontrolü (Tarihler ters olamaz)
+                if (checkOut.Date <= checkIn.Date)
+                {
+                    MessageBox.Show("Check-out date must be after Check-in date!", "Date Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // LİSTEDEKİ ESKİ REZERVASYONLARI TARIYORUZ
+                foreach (Reservation res in lstReservations.Items)
+                {
+                    // 1. Aynı oda mı?
+                    if (res.HotelRoom == selectedRoom)
+                    {
+                        // 2. Tarihler çakışıyor mu?
+                        if (checkIn < res.CheckOutDate && checkOut > res.CheckInDate)
+                        {
+                            MessageBox.Show("This room is booked for these dates!\n("
+                                + res.CheckInDate.ToShortDateString() + " - " + res.CheckOutDate.ToShortDateString() + ")",
+                                "Conflict Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return; // Çakışma var, işlemi iptal et
+                        }
+                    }
+                }
+
+                // 4. REZERVASYON Nesnesini oluşturuyoruz
+                Reservation newReservation = new Reservation(selectedRoom, selectedCustomer, checkIn, checkOut);
+
+                // 5. Rezervasyonu en alttaki listeye ekleyelim
+                lstReservations.Items.Add(newReservation);
+
+                MessageBox.Show("Reservation created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnCheckAvailability_Click(object sender, EventArgs e)
+        {
+            // 1. Oda seçili mi?
+            if (lstRooms.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a room first!", "Warning");
+                return;
+            }
+
+            Room selectedRoom = (Room)lstRooms.SelectedItem;
+            DateTime checkIn = dtpCheckIn.Value;
+            DateTime checkOut = dtpCheckOut.Value;
+
+            bool isAvailable = true;
+            string occupiedBy = "";
+
+            // 2. Taramayı Başlat
+            foreach (Reservation res in lstReservations.Items)
+            {
+                if (res.HotelRoom == selectedRoom)
+                {
+                    // Tarih çakışması var mı?
+                    if (checkIn < res.CheckOutDate && checkOut > res.CheckInDate)
+                    {
+                        isAvailable = false;
+                        occupiedBy = res.HotelGuest.FullName; // Kimin kaldığını öğreniyoruz
+                        break;
+                    }
+                }
+            }
+
+            // 3. Sonucu Söyle
+            if (isAvailable)
+            {
+                MessageBox.Show($"Room {selectedRoom.RoomNumber} is AVAILABLE for these dates!", "Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Room {selectedRoom.RoomNumber} is OCCUPIED by {occupiedBy}!", "Not Available", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void txtPrice_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

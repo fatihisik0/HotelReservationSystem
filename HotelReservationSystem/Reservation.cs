@@ -24,7 +24,7 @@ namespace HotelReservationSystem
 
         public override string ToString()
         {
-            return $"{HotelGuest.FullName} -> Oda {HotelRoom.RoomNumber} ({CheckInDate.ToShortDateString()} - {CheckOutDate.ToShortDateString()})";
+            return $"{HotelGuest.FullName} -> Room {HotelRoom.RoomNumber} ({CheckInDate.ToShortDateString()} - {CheckOutDate.ToShortDateString()})";
         }
     }
 }

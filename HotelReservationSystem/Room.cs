@@ -24,8 +24,8 @@ namespace HotelReservationSystem
 
         public override string ToString()
         {
-            string status = IsOccupied ? "[DOLU]" : "[BOŞ]";
-            return $"Oda {RoomNumber} - {Type} ({PricePerNight} TL) - {status}";
+            
+            return $"Room {RoomNumber} - {Type} ({PricePerNight} $) ";
         }
     }
 }
