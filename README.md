@@ -29,5 +29,8 @@ This project demonstrates **Object-Oriented Programming (OOP)** principles such 
 3.  **Check Availability:** Select Check-in/Check-out dates and a room to see if it's free.
 4.  **Make Reservation:** If available, create the booking. The system automatically links the selected Room and Customer.
 
----
+## Project Demo Video
+Click the link below to watch the project in action and the reservation test:
+(https://drive.google.com/file/d/1CrOeXqjiWk09D-qj3sVJXb1p6azsme6K/view?usp=sharing)
+
 *Developed by Fatih Işık*
