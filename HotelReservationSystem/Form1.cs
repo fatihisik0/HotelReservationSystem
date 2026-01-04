@@ -54,7 +54,7 @@ namespace HotelReservationSystem
                 Room newRoom = new Room(number, selectedType, price);
 
                 // 3. Bu odayı sağdaki ListBox'a ekleyelim
-                lstRooms.Items.Add(newRoom);
+                lstRooms.Items.Add(newRoom);   //list yapısı
 
                 // 4. Kutuları temizleyelim 
                 txtRoomNumber.Clear();
@@ -102,7 +102,7 @@ namespace HotelReservationSystem
                 Customer newGuest = new Customer(name, id, phone);
 
                 // 5. Listeye ekle
-                lstCustomers.Items.Add(newGuest);
+                lstCustomers.Items.Add(newGuest); //list yapısı
 
                 // 6. Temizlik
                 txtCustomerName.Clear();
@@ -120,7 +120,7 @@ namespace HotelReservationSystem
         private void btnMakeReservation_Click(object sender, EventArgs e)
         {
             // 1. Önce listeden bir ODA ve bir MÜŞTERİ seçilmiş mi diye bakalım
-            if (lstRooms.SelectedItem == null || lstCustomers.SelectedItem == null)
+            if (lstRooms.SelectedItem == null || lstCustomers.SelectedItem == null) //list yapısı
             {
                 MessageBox.Show("Please select a Room and a Customer first!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
